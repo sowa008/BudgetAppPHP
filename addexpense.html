@@ -42,15 +42,74 @@
 					</div>		
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
-					<form>
-					pierwsza połowa
-					</form>
+							
+							<form>
+								<div class="box">
+									Add expense <br>
+									<input style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
+								</div>
+							</form>
+							
+							<form>
+								<div class="box">
+									Date <br>
+								<input style="max-width: 230px;" type="date">
+								</div>
+							</form>
+					
+							<form>
+								<div class="box">
+									<label for="paymentmethod">Payment method <br></label>
+									<select id="paymentmethod">				
+										<option value="1">cash</option>
+										<option value="2">credit card</option>
+										<option value="3">debit card</option>			
+									</select>
+								</div>
+							</form>
+
+							<form>
+								<div class="box">
+									<label for="cathegory">Choose cathegory</label>
+									<select style="max-width: 230px;" id="cathegory">				
+										<option value="1">food</option>
+										<option value="2">housing expenses</option>
+										<option value="3">transportation</option>			
+										<option value="4">telecommunication</option>			
+										<option value="5">healthcare</option>			
+										<option value="6">clothing</option>			
+										<option value="7">hygiene</option>			
+										<option value="8">kids</option>			
+										<option value="9">entertainment</option>			
+										<option value="10">excursion</option>			
+										<option value="11">trainings</option>			
+										<option value="12">books</option>			
+										<option value="13">savings</option>			
+										<option value="14">for retirement</option>			
+										<option value="15">payment of debts</option>			
+										<option value="16">donation</option>			
+										<option value="17">other expenses</option>			
+									</select>
+								</div>
+							</form>
+							
 					</div>
 
 					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
-					<form>
-					druga połowa
-					</form>
+							
+							<form>
+								<div class="box">
+									<div><label for="comment">Comment (optional)</label></div>
+									<textarea id="comment" rows="8" cols="15"></textarea>
+								</div>
+							</form>	
+							
+							<form>
+									<div  id="addexpense"> 		
+										<input type="submit" value="Add expense">
+									</div>
+							</form>
+							
 					</div>
 				
 				</div>		

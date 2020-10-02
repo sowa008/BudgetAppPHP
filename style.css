@@ -48,17 +48,6 @@ h3
 	padding-top: 10px;
 }
 
-form
-{
-	padding: 50px;
-	text-align: center;
-	background-color: #fff5fc;
-	-webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
-	border-radius: 10px;
-}
-
 nav
 {
 	text-align: center;
@@ -143,6 +132,14 @@ input[type=submit]:hover
 	background-color: #ab47bc;
 }
 
+.box
+{
+	box-sizing: border-box;
+	background-color: #fff5fc;	
+	padding: 20px;
+	margin: 0;
+}
+
 .button
 {
 	background-color: #f3e5f5;
@@ -166,10 +163,57 @@ input[type=submit]:hover
 	cursor: pointer;
 }
 
+#addexpense
+{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#cathegory
+{
+	width: 300px;
+	background-color: #f3e5f5;
+	color: #6a1b81;
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	margin-top: 10px;
+	text-align: center;
+}
+
+#comment
+{
+	width: 100%;
+	height: auto;
+	background-color: #f3e5f5;
+	color: #6a1b81;
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 20px;
+	outline: none;
+	margin-top: 10px;
+}
+
 #create
 {
 	padding: 20px 10px;
 	color: #6a1b81;
+}
+
+#form
+{
+	padding: 50px;
+	text-align: center;
+	background-color: #fff5fc;
+	-webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	border-radius: 10px;
 }
 
 #register

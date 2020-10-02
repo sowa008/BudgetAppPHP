@@ -103,3 +103,22 @@ input[type=submit]:hover
 {
 	background-color: #ab47bc;
 }
+
+#create
+{
+	padding: 20px 10px;
+	color: #6a1b81;
+}
+
+#register
+{
+	color: red;
+	text-align: center;
+}
+
+#register:hover
+{
+	color: brown;
+	cursor: pointer;
+}
+

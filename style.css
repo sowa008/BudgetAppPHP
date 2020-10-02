@@ -163,10 +163,27 @@ input[type=submit]:hover
 	cursor: pointer;
 }
 
+.table
+{
+	background-color: #fff5fc;	
+	height: auto;
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	-moz-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+}
+
 #add
 {
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
+}
+
+#balance
+{
+	font-weight: 700;
+	margin-top: 10px;
 	text-align: center;
 }
 
@@ -251,4 +268,38 @@ input[type=submit]:hover
 	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
 	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
 	border-radius: 10px;
+}
+
+#balance
+{
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+#sentence
+{
+	color: #32cd32;
+	margin-top: 10px;
+}
+
+#balancebox
+{
+	background-color: #fff5fc;	
+	height: auto;
+	margin: auto;
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	-moz-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+}
+
+#piechart
+{
+	background-color: white;
+	-webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	-moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+	box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+
+	margin-top: 10px;
+	padding: 30px;
 }

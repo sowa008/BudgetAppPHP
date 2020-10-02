@@ -4,9 +4,9 @@
 <head>	    	
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <title>Add expense</title>
-		<meta name="description" content="BudgetApp: Add expense" />
-		<meta name="keywords" content="budgetapp, home, budget, plan, planner, manage, add, expense, form" />
+	    <title>Add income</title>
+		<meta name="description" content="BudgetApp: Add income" />
+		<meta name="keywords" content="budgetapp, home, budget, plan, planner, manage, add, income, form" />
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	    <link rel="stylesheet" href="style.css" type="text/css" />
@@ -32,8 +32,8 @@
 					
 						<div id="user">Welcome Zofia!</div>
 						<div><h2 class="icon-credit-card">Menu</h2></div>
-						<a href="#" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
-						<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default;"><span style="color: #e1bee7;" class="icon-money"> Add expense </span></div></a>
+						<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default;"><span style="color: #e1bee7;" class="icon-money"> Add income </span></div></a>
+						<a href="#" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
 						<a href="#" class="link"><div class="button"><i class="icon-chart-pie"></i> Show balance</div></a>
 						<a href="#" class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
 						<a href="#" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
@@ -45,7 +45,7 @@
 							
 							<form>
 								<div class="box">
-									Add expense <br>
+									Add income <br>
 									<input style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
 								</div>
 							</form>
@@ -59,36 +59,12 @@
 					
 							<form>
 								<div class="box">
-									<label for="paymentmethod">Payment method <br></label>
-									<select id="paymentmethod">				
-										<option value="1">cash</option>
-										<option value="2">credit card</option>
-										<option value="3">debit card</option>			
-									</select>
-								</div>
-							</form>
-
-							<form>
-								<div class="box">
-									<label for="cathegory">Choose cathegory</label>
+									<label for="cathegory">Source of income</label>
 									<select style="max-width: 230px;" id="cathegory">				
-										<option value="1">food</option>
-										<option value="2">housing expenses</option>
-										<option value="3">transportation</option>			
-										<option value="4">telecommunication</option>			
-										<option value="5">healthcare</option>			
-										<option value="6">clothing</option>			
-										<option value="7">hygiene</option>			
-										<option value="8">kids</option>			
-										<option value="9">entertainment</option>			
-										<option value="10">excursion</option>			
-										<option value="11">trainings</option>			
-										<option value="12">books</option>			
-										<option value="13">savings</option>			
-										<option value="14">for retirement</option>			
-										<option value="15">payment of debts</option>			
-										<option value="16">donation</option>			
-										<option value="17">other expenses</option>			
+										<option value="1">salary</option>
+										<option value="2">bank interest</option>
+										<option value="3">Allegro sale</option>			
+										<option value="4">other incomes</option>			
 									</select>
 								</div>
 							</form>
@@ -106,7 +82,7 @@
 							
 							<form>
 									<div  id="add"> 		
-										<input type="submit" value="Add expense">
+										<input type="submit" value="Add income">
 									</div>
 							</form>
 							

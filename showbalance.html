@@ -42,50 +42,39 @@
 					</div>		
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
+							<div class="table">
+								<div id="balance">Balance: 4890.44</div>
+								<div id="sentence">Congratulations. You manage your finances very well!</div>
+							</div>
 							
-							<form>
-								<div class="box">
-									Add income <br>
-									<input style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
-								</div>
-							</form>
+							<div class="table">
+								<img class="img-fluid" src="img/incomes.png" style="width: 320px"/>
+							</div>
 							
-							<form>
-								<div class="box">
-									Date <br>
-								<input style="max-width: 230px;" type="date">
-								</div>
-							</form>
+							<div class="table">
+								<img class="img-fluid" src="img/expanses.png" style="width: 320px"/>
+							</div>
+					</div>
+
+					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
 					
 							<form>
-								<div class="box">
-									<label for="cathegory">Source of income</label>
-									<select style="max-width: 230px;" id="cathegory">				
-										<option value="1">salary</option>
-										<option value="2">bank interest</option>
-										<option value="3">Allegro sale</option>			
-										<option value="4">other incomes</option>			
+								<div id="balancebox">
+									<label for="showbalance">Show balance of  </label>
+									<select id="showbalance">				
+										<option value="1">current month</option>
+										<option value="2">last month</option>
+										<option value="3">current year</option>			
+										<option value="4">custom</option>			
 									</select>
 								</div>
 							</form>
 							
-					</div>
-
-					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
-							
-							<form>
-								<div class="box">
-									<div><label for="comment">Comment (optional)</label></div>
-									<textarea id="comment" rows="8" cols="15"></textarea>
-								</div>
-							</form>	
-							
-							<form>
-									<div  id="add"> 		
-										<input type="submit" value="Add income">
-									</div>
-							</form>
-							
+							<div id="piechart">
+								<img class="img-fluid" src="img/pie.png"/>
+							</div>
+						</div>
+					
 					</div>
 				
 				</div>		

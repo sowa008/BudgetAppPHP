@@ -2,10 +2,14 @@
 
 	session_start();
 	
-	if ((isset($_SESSION['islogged'])) && ($_SESSION['islogged']==true))
+	if (!isset($_SESSION['register_successful']))
 	{
-		header('Location: mainmenu.php');
+		header('Location: login.php');
 		exit();
+	}
+	else
+	{
+			unset($_SESSION['register_successful']);
 	}
 
 ?>
@@ -40,29 +44,13 @@
 				<div class="row">
 					
 					<div class="col-sm-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 p-4">
+					
+					<div id="form">
 						
-						<form id="form" action="verifydata.php" method="post">
-						
-							<?php
-								if (isset($_SESSION['error']))	
-								{
-									echo $_SESSION['error'];
-									unset($_SESSION['error']);
-								}
-							?>
-							
-							<input type="email" name="email" placeholder="type your e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' ">
-						
-							<input type="password" name="password" placeholder="type your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
-									
-							<input type="submit" value="Log in" >
-							
-							<div id="create">Don't have your account yet? 
-							<br> Register here: 
-							</div>
-							<a href="register.php"><div id="register" > Register </div></a>
-							
-						</form>
+							Your account has been successfully created! <br /><br />
+							You can now <a href="index.php"><span style="color: #6a1b9a; font-weight: bold;"> Log in </a> here
+					
+					</ div>
 											
 					</div>		
 				

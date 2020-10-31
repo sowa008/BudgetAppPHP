@@ -11,6 +11,15 @@
 	{
 			unset($_SESSION['register_successful']);
 	}
+	
+		if (isset($_SESSION['form_username'])) unset($_SESSION['form_username']);
+		if (isset($_SESSION['form_email'])) unset($_SESSION['form_email']);
+		if (isset($_SESSION['form_password1'])) unset($_SESSION['form_password1']);
+		if (isset($_SESSION['form_password2'])) unset($_SESSION['form_password2']);
+		
+		if (isset($_SESSION['e_username'])) unset($_SESSION['e_username']);
+		if (isset($_SESSION['e_email'])) unset($_SESSION['e_email']);
+		if (isset($_SESSION['e_password'])) unset($_SESSION['e_password']);
 
 ?>
 

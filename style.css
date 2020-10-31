@@ -12,6 +12,11 @@ a.link
 	color: #6a1b81;
 }
 
+a:hover
+{
+	text-decoration: none;
+}
+
 h1
 {
 	font-size: 32px;
@@ -102,7 +107,6 @@ input[type=date]:focus
 	background-color: #f3e5f5;
 	color: #6a1b81;
 }
-
 
 input[type=submit]
 {
@@ -233,7 +237,7 @@ input[type=submit]:hover
 	border-radius: 10px;
 }
 
-#register
+#register 
 {
 	color: red;
 	text-align: center;

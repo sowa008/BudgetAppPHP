@@ -1,3 +1,15 @@
+<?php
+	
+	session_start();
+	
+	if (!isset($_SESSION['islogged']))
+	{
+		header('Location: login.php');
+		exit();
+	}
+	
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
     
@@ -30,13 +42,23 @@
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
 					<nav>
 					
-						<div id="user">Welcome Zofia!</div>
-						<div><h2 class="icon-credit-card">Menu</h2></div>
-						<a href="#" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
-						<a href="#" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+						<div id="user">
+								<?php 
+								echo "Welcome ".$_SESSION['user']."!";
+								?>	
+						</div>
+						
+						<a href="mainmenu.php"><div><h2 class="icon-credit-card">Menu</h2></div></a>
+						
+						<a href="addincome.php" class="link"><div class="button"><span style="color: green;" class="icon-money"> Add income </span></div></a>
+						
+						<a href="addexpense.php" class="link"><div class="button"><span style="color: red;" class="icon-money"> Add expense </span></div></a>
+						
 						<a href="#" class="link"><div class="button" style="background-color: #9c27b0; cursor: default; box-shadow: none;"><span style="color: #e1bee7;" class="icon-money"> Show balance </span></div></a>
+						
 						<a href="#" class="link"><div class="button"><i class="icon-cog"></i>Settings</div></a>	
-						<a href="#" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
+						
+						<a href="logout.php" class="link"><div class="button"><span style="color: brown; font-weight:700;" class="icon-logout"> Log out </span></div></a>
 					
 					</nav>
 					</div>		
@@ -48,11 +70,11 @@
 							</div>
 							
 							<div class="table">
-								<img class="img-fluid" src="img/incomes.png" style="width: 320px"/>
+								<img class="img-fluid" src="img/incomes.png" alt="Table with incomes" style="width: 320px"/>
 							</div>
 							
 							<div class="table">
-								<img class="img-fluid" src="img/expanses.png" style="width: 320px"/>
+								<img class="img-fluid" src="img/expanses.png" alt="Table with expenses" style="width: 320px"/>
 							</div>
 					</div>
 
@@ -71,15 +93,12 @@
 							</form>
 							
 							<div id="piechart">
-								<img class="img-fluid" src="img/pie.png"/>
+								<img class="img-fluid" src="img/pie.png" alt="Pie chart"/>
 							</div>
 						</div>
-					
 					</div>
-				
-				</div>		
-			
-			</div>				
+				</div>
+			</div>
 		</section>
 	</main>
 	

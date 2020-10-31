@@ -46,8 +46,14 @@
 
 		$password_hash = password_hash($register_password1, PASSWORD_DEFAULT);
 		
-		require_once "connect.php";
+//teraz tu pracuję		
 		
+		$_SESSION['form_username']=$username;
+		$_SESSION['form_email']=$register_email;
+		$_SESSION['form_password1']=$register_password1;
+		$_SESSION['form_password2']=$register_password2;
+		
+		require_once "connect.php";
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		
 		try
@@ -142,37 +148,61 @@
 						
 						<form id="form" method="post">
 							
-							<input type="text" name="username" required placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' ">
-							
-							<?php
-								if (isset($_SESSION['e_username']))
+							<input type="text" value="<?php
+								if (isset($_SESSION['form_username']))
 								{
-									echo '<div class="error">'.$_SESSION['e_username'].'</div>';
-									unset($_SESSION['e_username']);
+									echo $_SESSION['form_username'];
+									unset($_SESSION['form_username']);
 								}
-							?>
+								?>" name="username" required placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' ">
+								
+								<?php
+									if (isset($_SESSION['e_username']))
+									{
+										echo '<div class="error">'.$_SESSION['e_username'].'</div>';
+										unset($_SESSION['e_username']);
+									}
+								?>
 			
-							<input type="email" name="register_email" required placeholder="type your e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' ">
-							
-							<?php
-								if (isset($_SESSION['e_email']))
+							<input type="email" value="<?php
+								if (isset($_SESSION['form_email']))
 								{
-									echo '<div class="error">'.$_SESSION['e_email'].'</div>';
-									unset($_SESSION['e_email']);
+									echo $_SESSION['form_email'];
+									unset($_SESSION['form_email']);
 								}
-							?>
+								?>" name="register_email" required placeholder="type your e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' ">
+							
+								<?php
+									if (isset($_SESSION['e_email']))
+									{
+										echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+										unset($_SESSION['e_email']);
+									}
+								?>
 			
-							<input type="password" name="register_password1" required placeholder="type your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
-							
-							<?php
-								if (isset($_SESSION['e_password']))
+							<input type="password" value="<?php
+								if (isset($_SESSION['form_password1']))
 								{
-									echo '<div class="error">'.$_SESSION['e_password'].'</div>';
-									unset($_SESSION['e_password']);
+									echo $_SESSION['form_password1'];
+									unset($_SESSION['form_password1']);
 								}
-							?>
+								?>" name="register_password1" required placeholder="type your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
+							
+								<?php
+									if (isset($_SESSION['e_password']))
+									{
+										echo '<div class="error">'.$_SESSION['e_password'].'</div>';
+										unset($_SESSION['e_password']);
+									}
+								?>
 					   
-							<input type="password" name="register_password2" required placeholder="repeat your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='repeat your password' ">
+							<input type="password" value="<?php
+								if (isset($_SESSION['form_password2']))
+								{
+									echo $_SESSION['form_password2'];
+									unset($_SESSION['form_password2']);
+								}
+								?>" name="register_password2" required placeholder="repeat your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='repeat your password' ">
 							
 							<div class="w-100"></div>
 							

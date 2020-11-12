@@ -104,7 +104,7 @@
 							<form method="post">
 								<div class="box">
 									<label for="cathegory">Source of income</label>
-									<select style="max-width: 230px;" id="cathegory" name="income_option">
+									<select style="max-width: 230px;" id="category" name="income_option">
 
 									<?php 
 										for( $i = 1; $i <= $number_of_raws; $i++ )
@@ -148,7 +148,7 @@
 	
 	<div class="w-100"></div>
 	
-	<footer style="position:relative;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
+	<footer style="position: fixed;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
 	</footer>
 		
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

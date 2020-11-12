@@ -7,6 +7,49 @@
 		header('Location: login.php');
 		exit();
 	}
+	else
+	{
+		require_once "connect.php";
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		
+		$connection = new mysqli($host, $db_user, $db_password, $db_name);
+		
+		$expense_sql = "SELECT name FROM expenses_category_default";
+		$result = $connection->query($expense_sql);
+		$number_of_raws = $result->num_rows;
+		
+		$expense_option = Array($number_of_raws);
+		
+		for( $i = 1; $i <= $number_of_raws; $i++ )
+		{
+			$expense_sql = "SELECT name FROM expenses_category_default WHERE id='$i'";
+			$result = $connection->query($expense_sql);
+			$row = $result->fetch_assoc();
+			$expense_option[$i]=$row['name'];
+		}
+		
+		$connection->close();
+		
+				
+				$connection2 = new mysqli($host, $db_user, $db_password, $db_name);
+				
+				$payment_sql = "SELECT name FROM payment_methods_default";
+				$result2 = $connection2->query($payment_sql);
+				$number_of_raws2 = $result2->num_rows;
+				
+				$payment_option = Array($number_of_raws2);
+				
+				for( $i = 1; $i <= $number_of_raws2; $i++ )
+				{
+					$payment_sql = "SELECT name FROM payment_methods_default WHERE id='$i'";
+					$result2 = $connection2->query($payment_sql);
+					$row2 = $result2->fetch_assoc();
+					$payment_option[$i]=$row2['name'];
+				}
+				
+				$connection2->close();
+		
+	}
 	
 ?>
 
@@ -82,35 +125,37 @@
 							<form>
 								<div class="box">
 									<label for="paymentmethod">Payment method <br></label>
-									<select id="paymentmethod">				
-										<option value="1">cash</option>
-										<option value="2">credit card</option>
-										<option value="3">debit card</option>			
+									<select style="max-width: 230px;" id="paymentmethod" name="payment_option">				
+										<?php 
+											for( $i = 1; $i <= $number_of_raws2; $i++ )
+											{
+												?><option value=.'$i'>
+													<?php
+													echo $payment_option[$i];
+													?>
+												</option><?php
+											}
+										?>			
 									</select>
 								</div>
 							</form>
 
 							<form>
 								<div class="box">
-									<label for="cathegory">Choose cathegory</label>
-									<select style="max-width: 230px;" id="cathegory">				
-										<option value="1">food</option>
-										<option value="2">housing expenses</option>
-										<option value="3">transportation</option>			
-										<option value="4">telecommunication</option>			
-										<option value="5">healthcare</option>			
-										<option value="6">clothing</option>			
-										<option value="7">hygiene</option>			
-										<option value="8">kids</option>			
-										<option value="9">entertainment</option>			
-										<option value="10">excursion</option>			
-										<option value="11">trainings</option>			
-										<option value="12">books</option>			
-										<option value="13">savings</option>			
-										<option value="14">for retirement</option>			
-										<option value="15">payment of debts</option>			
-										<option value="16">donation</option>			
-										<option value="17">other expenses</option>			
+									<label for="category">Choose category</label>
+									<select style="max-width: 230px;" id="category" name="expense_option">	
+
+									<?php 
+										for( $i = 1; $i <= $number_of_raws; $i++ )
+										{
+											?><option value=.'$i'>
+												<?php
+												echo $expense_option[$i];
+												?>
+											</option><?php
+										}
+									?>
+											
 									</select>
 								</div>
 							</form>
@@ -142,7 +187,7 @@
 	
 	<div class="w-100"></div>
 	
-	<footer style="position:relative;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
+	<footer style="position: fixed;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
 	</footer>
 		
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

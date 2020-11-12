@@ -154,7 +154,7 @@
 									echo $_SESSION['form_username'];
 									unset($_SESSION['form_username']);
 								}
-								?>" name="username" required placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' ">
+								?>" name="username" required style="max-width: 100%;" placeholder="type your name" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your name' ">
 								
 								<?php
 									if (isset($_SESSION['e_username']))
@@ -164,7 +164,7 @@
 									}
 								?>
 			
-							<input type="email" value="<?php
+							<input type="email" style="max-width: 100%;" value="<?php
 								if (isset($_SESSION['form_email']))
 								{
 									echo $_SESSION['form_email'];
@@ -180,7 +180,7 @@
 									}
 								?>
 			
-							<input type="password" value="<?php
+							<input type="password" style="max-width: 100%;" value="<?php
 								if (isset($_SESSION['form_password1']))
 								{
 									echo $_SESSION['form_password1'];
@@ -196,7 +196,7 @@
 									}
 								?>
 					   
-							<input type="password" value="<?php
+							<input type="password" style="max-width: 100%;" value="<?php
 								if (isset($_SESSION['form_password2']))
 								{
 									echo $_SESSION['form_password2'];
@@ -206,7 +206,7 @@
 							
 							<div class="w-100"></div>
 							
-							<input type="submit" value="Register">
+							<input type="submit" style="max-width: 100%;" value="Register">
 						</form>
 					
 					</div>						
@@ -217,7 +217,7 @@
 		</section>
 	</main>
 	
-	<footer><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
+	<footer style="position: fixed;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
 	</footer>
 		
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

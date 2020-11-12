@@ -51,11 +51,11 @@
 								}
 							?>
 							
-							<input type="email" name="email" placeholder="type your e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' ">
+							<input style="max-width: 100%;" type="email" name="email" placeholder="e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your e-mail' ">
 						
-							<input type="password" name="password" placeholder="type your password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
+							<input style="max-width: 100%" type="password" name="password" placeholder="password" onfocus="this.placeholder=' ' " onblur="this.placeholder='type your password' ">
 									
-							<input type="submit" value="Log in" >
+							<input style="max-width: 100%;" type="submit" value="Log in" >
 							
 							<div id="create">Don't have your account yet? 
 							<br> Register here: 
@@ -72,7 +72,7 @@
 		</section>
 	</main>
 	
-	<footer><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
+	<footer style="position: fixed;"><i class="icon-credit-card"></i>BudgetApp&trade; was created in 2020	
 	</footer>
 		
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

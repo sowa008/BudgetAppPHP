@@ -25,7 +25,7 @@
 		{
 			$email = $_POST['email'];
 			$password = $_POST['password'];
-			
+							
 			$email = htmlentities($email, ENT_QUOTES, "UTF-8");
 			
 			if ($result = $connection->query(

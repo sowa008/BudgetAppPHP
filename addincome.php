@@ -7,7 +7,29 @@
 		header('Location: login.php');
 		exit();
 	}
-	
+	else
+	{
+		require_once "connect.php";
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		
+		$connection = new mysqli($host, $db_user, $db_password, $db_name);
+		
+		$sql = "SELECT name FROM incomes_category_default";
+		$result = $connection->query($sql);
+		$number_of_raws = $result->num_rows;
+		
+		$option = Array($number_of_raws);
+		
+		for( $i = 1; $i <= $number_of_raws; $i++ )
+		{
+			$sql = "SELECT name FROM incomes_category_default WHERE id='$i'";
+			$result = $connection->query($sql);
+			$row = $result->fetch_assoc();
+			$option[$i]=$row['name'];
+		}
+		
+		$connection->close();
+	}
 ?>
 
 <!DOCTYPE HTML>
@@ -65,28 +87,36 @@
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
 							
-							<form>
+							<form method="post">
 								<div class="box">
 									Add income <br>
 									<input style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
 								</div>
 							</form>
 							
-							<form>
+							<form method="post">
 								<div class="box">
 									Date <br>
 								<input style="max-width: 230px;" type="date">
 								</div>
 							</form>
 					
-							<form>
+							<form method="post">
 								<div class="box">
 									<label for="cathegory">Source of income</label>
-									<select style="max-width: 230px;" id="cathegory">				
-										<option value="1">salary</option>
-										<option value="2">bank interest</option>
-										<option value="3">Allegro sale</option>			
-										<option value="4">other incomes</option>			
+									<select style="max-width: 230px;" id="cathegory" name="income_option">
+
+									<?php 
+										for( $i = 1; $i <= $number_of_raws; $i++ )
+										{
+											?><option value=.'$i'>
+												<?php
+												echo $option[$i];
+												?>
+											</option><?php
+										}
+									?>					
+								
 									</select>
 								</div>
 							</form>
@@ -95,14 +125,14 @@
 
 					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
 							
-							<form>
+							<form method="post">
 								<div class="box">
 									<div><label for="comment">Comment (optional)</label></div>
 									<textarea id="comment" rows="8" cols="15"></textarea>
 								</div>
 							</form>	
 							
-							<form>
+							<form method="post">
 									<div  id="add"> 		
 										<input type="submit" value="Add income">
 									</div>

@@ -7,13 +7,15 @@
 		$all_validated=true;
 		
 		$username = $_POST['username'];
+		$username = strtolower($username);
+		$username = ucwords($username);
 		
 		if((strlen($username)<3) || (strlen($username)>20))
 		{
 			$all_validated=false;
 			$_SESSION['e_username']="Name must be between 3 and 20 characters long";
 		}
-		
+				
 		if(ctype_alnum($username)==false)
 		{
 			$all_validated=false;

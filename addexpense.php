@@ -107,71 +107,72 @@
 					</div>		
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
-							
-							<form>
-								<div class="box">
-									Add expense <br>
-									<input style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
-								</div>
-							</form>
-							
-							<form>
-								<div class="box">
-									Date <br>
-								<input style="max-width: 230px;" type="date">
-								</div>
-							</form>
 					
-							<form>
+						<form id="formbox" method="post" action="addingexpense.php">
+							
 								<div class="box">
-									<label for="paymentmethod">Payment method <br></label>
+									Add expense <br/>
+									<input name="expense" style="max-width: 230px;" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
+											<?php
+												if (isset($_SESSION['e_expenseamount']))
+												{
+													echo '<div class="error">'.$_SESSION['e_expenseamount'].'</div>';
+													unset($_SESSION['e_expenseamount']);
+												}
+											?>
+								</div>
+							
+								<div class="box">
+									Date <br/>
+									<input name="date" style="max-width: 230px;" type="date">
+										<?php
+											if (isset($_SESSION['e_date']))
+												{
+													echo '<div class="error">'.$_SESSION['e_date'].'</div>';
+													unset($_SESSION['e_date']);
+												}
+										?>
+								</div>
+					
+								<div class="box">
+									<label for="paymentmethod">Payment method</label><br/>
 									<select style="max-width: 230px;" id="paymentmethod" name="payment_option">				
+
 										<?php 
 											for( $i = 1; $i <= $number_of_raws2; $i++ )
 											{
-												?><option value=.'$i'>
-													<?php
-													echo $payment_option[$i];
-													?>
-												</option><?php
+												echo
+												'<option value='.$i.'>'.$payment_option[$i].'</option>';
 											}
-										?>			
+										?>
+										
 									</select>
 								</div>
-							</form>
 
-							<form>
 								<div class="box">
-									<label for="category">Choose category</label>
+									<label for="category">Choose category</label><br/>
 									<select style="max-width: 230px;" id="category" name="expense_option">	
-
-									<?php 
-										for( $i = 1; $i <= $number_of_raws; $i++ )
-										{
-											?><option value=.'$i'>
-												<?php
-												echo $expense_option[$i];
-												?>
-											</option><?php
-										}
-									?>
+									
+										<?php 
+											for( $i = 1; $i <= $number_of_raws; $i++ )
+											{
+												echo
+												'<option value='.$i.'>'.$expense_option[$i].'</option>';
+											}
+										?>
 											
 									</select>
 								</div>
-							</form>
 							
 					</div>
 
 					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
 							
-							<form>
 								<div class="box">
-									<div><label for="comment">Comment (optional)</label></div>
-									<textarea id="comment" rows="8" cols="15"></textarea>
-								</div>
-							</form>	
-							
-							<form>
+										<div><label for="comment">Comment (optional)</label></div>
+										<textarea form="formbox" id="comment" name="comment" rows="8" cols="15"></textarea>
+									</div>
+
 									<div  id="add"> 		
 										<input type="submit" value="Add expense">
 									</div>

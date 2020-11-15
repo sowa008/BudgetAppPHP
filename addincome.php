@@ -27,7 +27,7 @@
 			$row = $result->fetch_assoc();
 			$option[$i]=$row['name'];
 		}
-				
+						
 		$connection->close();
 		
 	}
@@ -93,29 +93,40 @@
 							<form id="formbox" method="post" action="addingincome.php">
 						
 									<div class="box">
-										Add income <br>
-										<input style="max-width: 230px;" name="xxx" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">
+										Add income <br/>
+										<input style="max-width: 230px;" name="xxx" type="number" step="0.01" min='0' required placeholder="amount" onfocus="this.placeholder=' ' " onblur="this.placeholder='amount' ">								
+											<?php
+												if (isset($_SESSION['e_incomeamount']))
+												{
+													echo '<div class="error">'.$_SESSION['e_incomeamount'].'</div>';
+													unset($_SESSION['e_incomeamount']);
+												}
+											?>
 									</div>
 
 									<div class="box">
-										Date <br>
+										Date <br/>
 									<input style="max-width: 230px;" type="date" name="date">
+											<?php
+												if (isset($_SESSION['e_date']))
+												{
+													echo '<div class="error">'.$_SESSION['e_date'].'</div>';
+													unset($_SESSION['e_date']);
+												}
+											?>
 									</div>
 						
 									<div class="box">
-										<label for="cathegory">Source of income</label>
+										<label for="category">Source of income</label><br/>
 										<select style="max-width: 230px;" id="category" name="income_option">
 
 										<?php 
 											for( $i = 1; $i <= $number_of_raws; $i++ )
 											{
-												?><option value=.'$i'>
-													<?php
-													echo $option[$i];
-													?>
-												</option><?php
+												echo
+												'<option value='.$i.'>'.$option[$i].'</option>';
 											}
-										?>					
+										?>
 									
 										</select>
 									</div>

@@ -86,8 +86,6 @@
 					</nav>
 					</div>		
 					
-					
-					<!--<form method="post" action="addingincome.php">-->
 						<div class="col-sm-12 col-md-6 col-lg-4 p-4"> 
 						
 							<form id="formbox" method="post" action="addingincome.php">

@@ -7,6 +7,20 @@
 		header('Location: login.php');
 		exit();
 	}
+	else
+	{
+		$user_id = $_SESSION['id'];
+		require_once 'database.php';
+			
+		$incomesQuery = $db->query("SELECT * FROM incomes WHERE user_id='$user_id'");
+		$incomes = $incomesQuery->fetchAll();
+		
+		$expensesQuery = $db->query("SELECT * FROM expenses WHERE user_id='$user_id'");
+		$expenses = $expensesQuery->fetchAll();
+		
+		//print_r($incomes);
+		
+	}
 	
 ?>
 
@@ -64,18 +78,39 @@
 					</div>		
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
-							<div class="table">
-								<div id="balance">Balance: 4890.44</div>
-								<div id="sentence">Congratulations. You manage your finances very well!</div>
+														
+							<div class="table">							
+									<table>
+										<thead>
+											<tr><th colspan="4">Together incomes: <?= $incomesQuery->rowCount() ?></th></tr>
+											<tr><th>Date</th><th>Amount</th><th>Category</th><th>Comment</th></tr>
+										</thead>
+										<tbody>
+											<?php
+												foreach ($incomes as $income){
+														echo "<tr><td>{$income['date_of_income']}</td><td>{$income['amount']}</td><td>{$income['income_category_assigned_to_user_id']}</td><td>{$income['income_comment']}</td></tr>";
+												}
+											?>	
+										</tbody>
+									</table>
 							</div>
 							
-							<div class="table">
-								<img class="img-fluid" src="img/incomes.png" alt="Table with incomes" style="width: 320px"/>
+							<div class="table">							
+									<table>
+										<thead>
+											<tr><th colspan="5">Together expenses: <?= $expensesQuery->rowCount() ?></th></tr>
+											<tr><th>Date</th><th>Amount</th><th>Category</th><th>Payment</th><th>Comment</th></tr>
+										</thead>
+										<tbody>
+											<?php
+												foreach ($expenses as $expense){
+														echo "<tr><td>{$expense['date_of_expense']}</td><td>{$expense['amount']}</td><td>{$expense['payment_method_assigned_to_user_id']}</td><td>{$expense['expense_category_assigned_to_user_id']}</td><td>{$expense['expense_comment']}</td></tr>";
+												}
+											?>	
+										</tbody>
+									</table>
 							</div>
 							
-							<div class="table">
-								<img class="img-fluid" src="img/expanses.png" alt="Table with expenses" style="width: 320px"/>
-							</div>
 					</div>
 
 					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">

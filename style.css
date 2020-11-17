@@ -190,7 +190,16 @@ input[type=submit]:hover
 	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
 	font-size: 10px;
 	text-align: center;
-	width: 100%;
+	max-width: none; 
+	word-wrap: break-word; 
+	table-layout: fixed;
+}
+
+table
+{
+	max-width: none; 
+	word-wrap: break-word; 
+	table-layout: fixed;	
 }
 
 #add
@@ -299,6 +308,35 @@ input[type=submit]:hover
 	margin-top: 10px;
 }
 
+#showbalancediv
+{
+	font-size: 20px; 
+	height: auto; 
+	padding: 16px;
+	margin-bottom: 15px;
+	background-color: #fff5fc;	
+	-webkit-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	-moz-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	text-align: center;
+	width: 100%;
+}
+
+#showbalance
+{
+	background-color: #f3e5f5;
+	color: #6a1b81;
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	text-align: center;
+	height: 50px;
+	margin: 0px;
+}
+
 #sentence
 {
 	color: #32cd32;
@@ -313,7 +351,7 @@ input[type=submit]:hover
 	padding: 20px;
 	-webkit-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
 	-moz-box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
-	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);
+	box-shadow: 0px 0px 15px 2px rgba(204,204,204,0.9);	
 }
 
 #piechart

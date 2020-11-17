@@ -15,12 +15,33 @@
 		$current_month=date('m');
 		$current_month_name=date("F", strtotime(date('mm')));
 					
-		$incomesQuery = $db->query("SELECT * FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
+		$incomesQuery = $db->query("SELECT *  FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
 		$incomes = $incomesQuery->fetchAll();
 		
-		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND MONTH(date_of_expense)='$current_month' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
+		$incomesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfIncomes FROM incomes WHERE user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month'");
+		$incomesQuerySum->execute();
+		$IncomesSum = $incomesQuerySum->fetch();
+		$incomesSum=$IncomesSum['SumOfIncomes'];
 		
+		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND MONTH(date_of_expense)='$current_month' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
 		$expenses = $expensesQuery->fetchAll();
+
+		$expensesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfExpenses FROM expenses WHERE user_id='$user_id' AND MONTH(expenses.date_of_expense)='$current_month'");
+		$expensesQuerySum->execute();
+		$ExpensesSum = $expensesQuerySum->fetch();
+		$expensesSum=$ExpensesSum['SumOfExpenses'];
+		
+		$balance=$incomesSum-$expensesSum;
+		$balance = number_format($balance,2,'.','');
+		
+		if ($balance>0)
+		{
+			$_SESSION['balance_comment']="Congratulations! You manage your budget very well!";
+		}
+		else if ($balance<0)
+		{
+			$_SESSION['balance_comment']="Be careful! You spend more than you earn!";
+		}
 		
 	}
 	
@@ -80,11 +101,32 @@
 					</div>		
 					
 					<div class="col-sm-12 col-md-6 col-lg-4 p-4">
+					
+						<div id="showbalancediv">	
+							<a style="font-weight: bold;">BALANCE SHEET </a>
+							<br/>
+							<a style="color: #6a1b9a;">in <?=$current_month_name?></a>
+						</div>
+					
+						<div class="table" style="font-size: 14px;">	
+						<table style="margin-left:auto; margin-right:auto; text-align: right;">
+							<tr><th><a style="color: green;">Total INCOMES: </a></th><th><?=$incomesSum ?></th></tr>
+							<tr><th><a style="color: red;">Total EXPENSES: </a></th><th><?=$expensesSum ?></th></tr>
+							<tr><th><a>BALANCE : </a></th><th><?=$balance ?></th></tr>
+						</table>
+										<?php
+										if (isset($_SESSION['balance_comment']))
+										{
+											echo $_SESSION['balance_comment'];
+											unset($_SESSION['balance_comment']);
+										}
+									?>
+						</div>
 														
 							<div class="table">							
 									<table style="margin-left:auto; margin-right:auto;">
 										<thead>
-											<tr><th colspan="4" style="color: green;">Together incomes in <?=$current_month_name?>: <?= $incomesQuery->rowCount() ?></th></tr>
+											<tr><th colspan="4" style="color: green;">Together incomes: <?= $incomesQuery->rowCount() ?></th></tr>
 											<tr><th>Date</th><th>Amount</th><th>Category</th><th>Comment</th></tr>
 										</thead>
 										<tbody>
@@ -100,7 +142,7 @@
 							<div class="table">							
 									<table style="margin-left:auto; margin-right:auto;">
 										<thead>
-											<tr><th colspan="5" style="color: red;">Together expenses in <?=$current_month_name?>: <?= $expensesQuery->rowCount() ?></th></tr>
+											<tr><th colspan="5" style="color: red;">Together expenses: <?= $expensesQuery->rowCount() ?></th></tr>
 											<tr><th>Date</th><th>Amount</th><th>Category</th><th>Payment</th><th>Comment</th></tr>
 										</thead>
 										<tbody>
@@ -127,8 +169,8 @@
 					<div class="col-sm-12 col-md-6 col-lg-4 offset-md-6 offset-lg-0 p-4">
 					
 							<form>
-								<div id="balancebox">
-									<label for="showbalance">Show balance of  </label>
+								<div id="balancebox" style="text-align: center;">
+									<label for="showbalance" style="margin-right: 10px;">Show balance of   </label>
 									<select id="showbalance">				
 										<option value="1">current month</option>
 										<option value="2">last month</option>
@@ -138,7 +180,7 @@
 								</div>
 							</form>
 							
-							<div id="piechart">
+							<div id="piechart" style="margin-top: 17px;">
 								<img class="img-fluid" src="img/pie.png" alt="Pie chart"/>
 							</div>
 						</div>

@@ -2,6 +2,15 @@
 	
 	session_start();
 	
+	$firstDayUTS = mktime (0, 0, 0, date("m"), 1, date("Y"));
+	$lastDayUTS = mktime (0, 0, 0, date("m"), date('t'), date("Y"));
+
+	$startdate = date("d-m-Y", $firstDayUTS);
+	$enddate = date("d-m-Y", $lastDayUTS);
+	
+	$startdate=date('Y-m-d', strtotime($startdate));
+	$enddate=date('Y-m-d', strtotime($enddate));
+		
 	if (!isset($_SESSION['islogged']))
 	{
 		header('Location: login.php');
@@ -13,6 +22,7 @@
 		require_once 'database.php';
 		
 		$current_month = date('m');
+		
 		
 		$current_month_name = date("F", strtotime(date('mm')));
 					
@@ -44,8 +54,37 @@
 			$_SESSION['balance_comment']="Be careful! You spend more than you earn!";
 		}
 		
+	//tu walidacja daty
+		$date_validated = true;
+		$now=date("Y-m-d");	
+
+		if ((!empty($_POST['datefrom'])) && (!empty($_POST['dateto'])))
+		{
+			$datefrom = $_POST['datefrom'];
+			$dateto = $_POST['dateto'];
+			
+			if ($datefrom>$now)
+				{	
+					$date_validated = false;
+					$_SESSION['e_datefrom']="Enter the valid period"; 
+				}
+										
+			if ($dateto<$datefrom)
+				{
+					$date_validated = false;
+					$_SESSION['e_dateto']="This date should be later than starting date"; 
+				}
+			
+			if ($date_validated)
+			{
+				$_SESSION['datefrom'] = $datefrom;
+				$_SESSION['dateto'] = $dateto;
+				header('Location: showcustombalancefixed.php');
+			}
+			
+		}
+		
 	}
-	
 ?>
 
 <!DOCTYPE HTML>
@@ -175,10 +214,39 @@
 										<option value="1">Current Month</option>
 										<option value="2">Last Month</option>
 										<option value="3">Current Year</option>			
-										<option value="4">Custom</option>			
+										<option value="4" selected>Custom</option>		
 									</select>
+								</form>
+									<br/>
+									<br/>
+								<form id="dateform" method="post">
+										<div class="box">
+											FROM <br/>
+											<input style="max-width: 100%;" type="date" name="datefrom" value="<?=$startdate?>">
+												<?php
+													if (isset($_SESSION['e_datefrom']))
+													{
+														echo '<div class="error">'.$_SESSION['e_datefrom'].'</div>';
+														unset($_SESSION['e_datefrom']);
+													}
+												?>
+										</div>
+										<div class="box">
+											TO <br/>
+											<input style="max-width: 100%;" type="date" name="dateto" value="<?=$enddate?>">
+												<?php
+													if (isset($_SESSION['e_dateto']))
+													{
+														echo '<div class="error">'.$_SESSION['e_dateto'].'</div>';
+														unset($_SESSION['e_dateto']);
+													}
+												?>
+										</div>
+										<div  id="submit"> 		
+												<input type="submit" value="Show balance">
+										</div>
+								</form>
 								</div>
-							</form>
 							
 							<div id="piechart" style="margin-top: 17px;">
 								<img class="img-fluid" src="img/pie.png" alt="Pie chart"/>

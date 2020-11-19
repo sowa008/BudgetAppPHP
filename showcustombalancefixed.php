@@ -1,7 +1,7 @@
 <?php
 	
 	session_start();
-	
+			
 	if (!isset($_SESSION['islogged']))
 	{
 		header('Location: login.php');
@@ -14,20 +14,21 @@
 		
 		$current_month = date('m');
 		
-		$current_month_name = date("F", strtotime(date('mm')));
+		$startdate = $_SESSION['datefrom'];
+		$enddate = $_SESSION['dateto'];
 					
-		$incomesQuery = $db->query("SELECT *  FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
+		$incomesQuery = $db->query("SELECT * FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND date_of_income BETWEEN '$startdate' AND '$enddate' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
 		$incomes = $incomesQuery->fetchAll();
 		
-		$incomesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfIncomes FROM incomes WHERE user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month'");
+		$incomesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfIncomes FROM incomes WHERE user_id='$user_id' AND date_of_income BETWEEN '$startdate' AND '$enddate'");
 		$incomesQuerySum->execute();
 		$IncomesSum = $incomesQuerySum->fetch();
 		$incomesSum=$IncomesSum['SumOfIncomes'];
 		
-		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND MONTH(date_of_expense)='$current_month' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
+		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND date_of_expense BETWEEN '$startdate' AND '$enddate' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
 		$expenses = $expensesQuery->fetchAll();
 
-		$expensesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfExpenses FROM expenses WHERE user_id='$user_id' AND MONTH(expenses.date_of_expense)='$current_month'");
+		$expensesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfExpenses FROM expenses WHERE user_id='$user_id' AND date_of_expense BETWEEN '$startdate' AND '$enddate'");
 		$expensesQuerySum->execute();
 		$ExpensesSum = $expensesQuerySum->fetch();
 		$expensesSum=$ExpensesSum['SumOfExpenses'];
@@ -44,8 +45,36 @@
 			$_SESSION['balance_comment']="Be careful! You spend more than you earn!";
 		}
 		
+		$date_validated = true;
+		$now=date("Y-m-d");	
+
+		if ((!empty($_POST['datefrom'])) && (!empty($_POST['dateto'])))
+		{
+			$datefrom = $_POST['datefrom'];
+			$dateto = $_POST['dateto'];
+			
+			if ($datefrom>$now)
+				{	
+					$date_validated = false;
+					$_SESSION['e_datefrom']="Enter the valid period"; 
+				}
+										
+			if ($dateto<$datefrom)
+				{
+					$date_validated = false;
+					$_SESSION['e_dateto']="This date should be later than starting date"; 
+				}
+			
+			if ($date_validated)
+			{
+				$_SESSION['datefrom'] = $datefrom;
+				$_SESSION['dateto'] = $dateto;
+				header('Location: showcustombalancefixed.php');
+			}
+			
+		}
+		
 	}
-	
 ?>
 
 <!DOCTYPE HTML>
@@ -106,7 +135,7 @@
 						<div id="showbalancediv">	
 							<a style="font-weight: bold;">BALANCE SHEET </a>
 							<br/>
-							<a style="color: #6a1b9a;">in <?=$current_month_name?></a>
+							<a style="color: #6a1b9a;">between <?= $startdate?> and <?= $enddate?></a>
 						</div>
 					
 						<div class="table" style="font-size: 14px;">	
@@ -175,10 +204,39 @@
 										<option value="1">Current Month</option>
 										<option value="2">Last Month</option>
 										<option value="3">Current Year</option>			
-										<option value="4">Custom</option>			
+										<option value="4" selected>Custom</option>		
 									</select>
+								</form>
+									<br/>
+									<br/>
+								<form id="dateform" method="post">
+										<div class="box">
+											FROM <br/>
+											<input style="max-width: 100%;" type="date" name="datefrom" value="<?= $startdate?>">
+												<?php
+													if (isset($_SESSION['e_datefrom']))
+													{
+														echo '<div class="error">'.$_SESSION['e_datefrom'].'</div>';
+														unset($_SESSION['e_datefrom']);
+													}
+												?>
+										</div>
+										<div class="box">
+											TO <br/>
+											<input style="max-width: 100%;" type="date" name="dateto" value="<?= $enddate?>">
+												<?php
+													if (isset($_SESSION['e_dateto']))
+													{
+														echo '<div class="error">'.$_SESSION['e_dateto'].'</div>';
+														unset($_SESSION['e_dateto']);
+													}
+												?>
+										</div>
+										<div  id="submit"> 		
+												<input type="submit" value="Show balance">
+										</div>
+								</form>
 								</div>
-							</form>
 							
 							<div id="piechart" style="margin-top: 17px;">
 								<img class="img-fluid" src="img/pie.png" alt="Pie chart"/>

@@ -12,22 +12,20 @@
 		$user_id = $_SESSION['id'];
 		require_once 'database.php';
 		
-		$current_month = date('m');
-		
-		$current_month_name = date("F", strtotime(date('mm')));
-					
-		$incomesQuery = $db->query("SELECT *  FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
+		$current_year = date('yy');
+									
+		$incomesQuery = $db->query("SELECT *  FROM incomes, incomes_category_default WHERE incomes.user_id='$user_id' AND YEAR(incomes.date_of_income)='$current_year' AND incomes.income_category_assigned_to_user_id=incomes_category_default.id ORDER BY incomes.date_of_income");
 		$incomes = $incomesQuery->fetchAll();
 		
-		$incomesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfIncomes FROM incomes WHERE user_id='$user_id' AND MONTH(incomes.date_of_income)='$current_month'");
+		$incomesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfIncomes FROM incomes WHERE user_id='$user_id' AND YEAR(incomes.date_of_income)='$current_year'");
 		$incomesQuerySum->execute();
 		$IncomesSum = $incomesQuerySum->fetch();
 		$incomesSum=$IncomesSum['SumOfIncomes'];
 		
-		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND MONTH(date_of_expense)='$current_month' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
+		$expensesQuery = $db->query("SELECT *, payment_methods_default.name AS payment, expenses_category_default.name AS category FROM expenses, expenses_category_default, payment_methods_default WHERE user_id='$user_id' AND YEAR(date_of_expense)='$current_year' AND expenses.expense_category_assigned_to_user_id=expenses_category_default.id AND payment_methods_default.id=expenses.payment_method_assigned_to_user_id ORDER BY expenses.date_of_expense");
 		$expenses = $expensesQuery->fetchAll();
 
-		$expensesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfExpenses FROM expenses WHERE user_id='$user_id' AND MONTH(expenses.date_of_expense)='$current_month'");
+		$expensesQuerySum = $db->query("SELECT amount, SUM(amount) AS SumOfExpenses FROM expenses WHERE user_id='$user_id' AND YEAR(expenses.date_of_expense)='$current_year'");
 		$expensesQuerySum->execute();
 		$ExpensesSum = $expensesQuerySum->fetch();
 		$expensesSum=$ExpensesSum['SumOfExpenses'];
@@ -106,7 +104,7 @@
 						<div id="showbalancediv">	
 							<a style="font-weight: bold;">BALANCE SHEET </a>
 							<br/>
-							<a style="color: #6a1b9a;">in <?=$current_month_name?></a>
+							<a style="color: #6a1b9a;">in the year <?=$current_year?></a>
 						</div>
 					
 						<div class="table" style="font-size: 14px;">	
@@ -174,7 +172,7 @@
 									<select name="optionTime" id="showbalance" onchange="this.form.submit()">				
 										<option value="1">Current Month</option>
 										<option value="2">Last Month</option>
-										<option value="3">Current Year</option>			
+										<option value="3" selected>Current Year</option>			
 										<option value="4">Custom</option>			
 									</select>
 								</div>
